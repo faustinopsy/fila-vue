@@ -5,7 +5,7 @@ class Item{
         this.carrinho = [];
         this.app = document.querySelector("#app")
         this.template()
-        this.atualizarUI()
+        this.afterRender()
     }
     adicionarItem() {
         this.nome = document.querySelector("#nome").value;
@@ -18,24 +18,16 @@ class Item{
         this.carrinho.push(item)
         this.nome = null
         this.quantidade = null
+        this.atualizaLista();
       }
     removerItem(id) {
         const index = this.carrinho.findIndex(item => item.id === parseInt(id));
-        console.log(index)
         if (index !== -1) {
             this.carrinho.splice(index, 1);
             this.atualizaLista()
         } else {
             console.log(`Item com id ${id} não encontrado.`);
         }
-    }
-    atualizarUI(){
-        const form = document.querySelector("#adicionarItem")
-        form.addEventListener("submit", (e)=>{
-            e.preventDefault();
-            this.adicionarItem();
-            this.atualizaLista();
-        });
     }
     atualizaLista(){
         const listaUI = document.querySelector("#lista")
@@ -47,16 +39,22 @@ class Item{
             });
             document.querySelector("#nome").value = '';
             document.querySelector("#quantidade").value = '';
-            this.afterRender()
+            
+            const removeButtons = document.querySelectorAll('#remove');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.getAttribute('data-id');
+                    this.removerItem(id)
+                });
+            });
     }
     afterRender() {
-        const removeButtons = document.querySelectorAll('#remove');
-        removeButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const id = e.target.getAttribute('data-id');
-                this.removerItem(id)
-            });
+        const form = document.querySelector("#adicionarItem")
+        form.addEventListener("submit", (e)=>{
+            e.preventDefault();
+            this.adicionarItem();
         });
+       
     }
     template(){
         this.app.innerHTML = 
