@@ -1,10 +1,22 @@
-const app = Vue.createApp({
-    data() {
-     return {
-      message: "Hello World!"
-     }
+class Item{
+    constructor(){
+        this.nome = null;
+        this.quantidade = null;
+        this.carrinho = [];
+        this.app = document.querySelector("#app")
+        this.template()
     }
-   })
-   
-   app.mount('#app')
- 
+    adicionarItem(){
+
+    }
+    removerItem(){
+
+    }
+    template(){
+        this.app.innerHTML = 
+        `
+        teste
+        `
+    }
+ }
+const listas = new Item()
