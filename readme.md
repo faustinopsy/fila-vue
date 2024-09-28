@@ -1,5 +1,35 @@
-# Ideias evolutivas
+# lista-compras
 
-1. As branches ficarão como galhos que saem de um exemplo básico e criará modelos complexos.
+This template should help get you started developing with Vue 3 in Vite.
 
-2. se for curioso explore as branches que nascerão do repositório.
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
