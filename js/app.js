@@ -8,13 +8,24 @@ const app = Vue.createApp({
             ]
           }
         },
+        methods: {
+            adicionarItem() {
+              let item = {
+                produto: this.nome,
+                qtd: this.quantidade
+              }
+              this.carrinho.push(item)
+              this.nome = null
+              this.quantidade = null
+            }
+          },
         template: 
         `
-        <form>
+        <form v-on:submit.prevent="adicionarItem">
             <p>Lista de itens</p>
             <p>Nome do item: <input type="text" required v-model="nome"></p>
             <p>Quantos: <input type="number" v-model="quantidade"></p>
-            <button type="submit">Adicionar</button>
+            <button >Adicionar</button>
         </form>
         <p>Carrinho</p>
         <ul>
