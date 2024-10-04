@@ -1,12 +1,11 @@
 const TodoItem = {
   template: `<h1>Lista de compras</h1>`
 }
-
 const app = Vue.createApp({
   components: {
     TodoItem 
   },
-    data() {
+   data() {
         return {
             nome: null,
             quantidade: null,
@@ -44,7 +43,8 @@ const app = Vue.createApp({
         <p>Carrinho</p>
         <ul>
             <li v-for="item in carrinho" >{{item.id}}, {{item.produto}}, {{item.qtd}} <button @click="removerItem(item)">x</button></li>
-        </ul>
+        {{nome}} {{quantidade}}
+            </ul>
         </div>
         `,
    })
