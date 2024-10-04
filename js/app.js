@@ -1,4 +1,11 @@
+const TodoItem = {
+  template: `<h1>Lista de compras</h1>`
+}
+
 const app = Vue.createApp({
+  components: {
+    TodoItem 
+  },
     data() {
         return {
             nome: null,
@@ -26,6 +33,7 @@ const app = Vue.createApp({
           },
         template: 
         `
+        <todo-item></todo-item>
         <div class="container">
         <form v-on:submit.prevent="adicionarItem">
             <p>Lista de itens</p>
