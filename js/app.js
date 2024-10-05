@@ -1,5 +1,6 @@
 import Formulario from './components/Formulario.js';
 import Lista from './components/Lista.js';
+import BaseDeDados from './components/BaseDeDados.js';
 
 const app = Vue.createApp({
   components: {
@@ -13,7 +14,11 @@ const app = Vue.createApp({
       carrinho: []
     }
   },
+  created() {
+    this.carrinho = this.obterDoLocalStorage();
+  },
   methods: {
+    ...BaseDeDados.methods,
     adicionarItem(item) {
       let novoItem = {
         id: Date.now(),
@@ -21,11 +26,13 @@ const app = Vue.createApp({
         qtd: item.quantidade
       }
       this.carrinho.push(novoItem)
+      this.salvarNoLocalStorage(this.carrinho);
     },
     removerItem(item) {
       const i = this.carrinho.indexOf(item)
       if (i > -1) {
         this.carrinho.splice(i, 1)
+        this.salvarNoLocalStorage(this.carrinho);
       }
     }
   },
