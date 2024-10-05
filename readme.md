@@ -7,14 +7,17 @@
 ```
 
             /------vue-lista-compra (menos linhas de código)
-          /              \            - inserir item  = menos esfoço cognitivo
- Master /                 \           - remover item
-        \                  \
-         \                  \
-          \                  \-----vue-lista-compras-node( projeto inicado com node)
-           \
-            \
-             \
-              \--------jspuro-listacompra (mais linhas de código)
+          /              \      \      - inserir item  = menos esfoço cognitivo
+ Master /                 \      \     - remover item
+        \                  \      \
+         \                  \      \
+          \                  \      \------vue-lista-compra-modular ( separando componentes)
+           \                  \
+            \                  \
+             \                  \-----vue-lista-compras-node( projeto inicado com node)
+              \
+               \
+                \
+                 \--------jspuro-listacompra (mais linhas de código)
                                     - inserir item  = mais esfoço cognitivo
                                     - remover item
