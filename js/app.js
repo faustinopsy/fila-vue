@@ -1,6 +1,5 @@
 import Formulario from './components/Formulario.js';
 import Lista from './components/Lista.js';
-import BaseDeDados from './components/BaseDeDados.js';
 
 const app = Vue.createApp({
   components: {
@@ -9,47 +8,35 @@ const app = Vue.createApp({
   },
   data() {
     return {
-      nome: null,
-      quantidade: null,
-      carrinho: []
-    }
-  },
-  created() {
-    this.carrinho = this.obterDoLocalStorage();
+      carrinho: this.obterDoLocalStorage()
+    };
   },
   methods: {
-    ...BaseDeDados.methods,
-    adicionarItem(item) {
-      let novoItem = {
-        id: Date.now(),
-        produto: item.nome,
-        qtd: item.quantidade
-      }
-      this.carrinho.push(novoItem)
+    adicionarItem(novoItem) {
+      this.carrinho.push(novoItem);
       this.salvarNoLocalStorage(this.carrinho);
     },
     removerItem(item) {
-      const i = this.carrinho.indexOf(item)
-      if (i > -1) {
-        this.carrinho.splice(i, 1)
+      const index = this.carrinho.indexOf(item);
+      if (index > -1) {
+        this.carrinho.splice(index, 1);
         this.salvarNoLocalStorage(this.carrinho);
       }
+    },
+    salvarNoLocalStorage(carrinho) {
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    },
+    obterDoLocalStorage() {
+      const carrinho = localStorage.getItem('carrinho');
+      return carrinho ? JSON.parse(carrinho) : [];
     }
   },
   template: `
     <div class="container">
-      <formulario 
-      :nome="nome" 
-      :quantidade="quantidade" 
-      @adicionar-item="adicionarItem" 
-      @interpola:nome="nome = $event"
-      @interpola:quantidade="quantidade = $event"
-    ></formulario>
+      <formulario @adicionar-item="adicionarItem"></formulario>
       <p>Carrinho</p>
-      <lista :carrinho="carrinho" @remover-item="removerItem"></lista>
-      <p> {{ nome }} - {{ quantidade }}</p>
+      <lista :carrinholista="carrinho" @remover-item="removerItem"></lista>
     </div>
   `
 });
-
 app.mount('#app');

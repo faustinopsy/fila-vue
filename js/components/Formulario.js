@@ -1,32 +1,37 @@
 export default {
-  props: ['nome', 'quantidade'],
   data() {
     return {
-      localNome: this.nome,
-      localQuantidade: this.quantidade
+      localNome: '',
+      localQuantidade: ''
     }
   },
   methods: {
     enviarItem() {
-      this.$emit('adicionar-item', { nome: this.localNome, quantidade: this.localQuantidade })
-      this.localNome = null
-      this.localQuantidade = null
-    }
-  },
-  watch: {
-    localNome(val) {
-      this.$emit('interpola:nome', val); 
+      let novoItem = {
+        id: Date.now(),
+        produto: this.localNome,
+        qtd: this.localQuantidade
+      };
+      this.salvarNoLocalStorage(novoItem);  
+      this.$emit('adicionar-item', novoItem);
+      this.localNome = '';
+      this.localQuantidade = '';
     },
-    localQuantidade(val) {
-      this.$emit('interpola:quantidade', val);  
+    salvarNoLocalStorage(item) {
+      let carrinho = this.obterDoLocalStorage();
+      carrinho.push(item);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    },
+    obterDoLocalStorage() {
+      const carrinho = localStorage.getItem('carrinho');
+      return carrinho ? JSON.parse(carrinho) : [];
     }
   },
   template: `
     <form v-on:submit.prevent="enviarItem">
-      <p>Lista de itens</p>
-      <p>Nome do item: <input type="text" required v-model="localNome"></p>
-      <p>Quantos: <input type="number" v-model="localQuantidade"></p>
-      <button>Adicionar</button>
+      <p>Nome do item: <input type="text" v-model="localNome" required></p>
+      <p>Quantidade: <input type="number" v-model="localQuantidade" required></p>
+      <button type="submit">Adicionar</button>
     </form>
-  `,
+  `
 }

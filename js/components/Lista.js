@@ -1,11 +1,24 @@
 export default {
+  props: ['carrinholista'],
+  methods: {
+    removerItem(item) {
+      const index = this.carrinholista.indexOf(item);
+      if (index > -1) {
+        this.carrinholista.splice(index, 1);
+        this.salvarNoLocalStorage(this.carrinholista); 
+        this.$emit('remover-item', item);
+      }
+    },
+    salvarNoLocalStorage(carrinho) {
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+  },
   template: `
-    <ul v-for="item in carrinho" :key="item.id">
-      <li v-if="item.qtd > 10">
-        {{item.id}}, {{item.produto}}, {{item.qtd}} 
-        <button @click="$emit('remover-item', item)">x</button>
+    <ul>
+      <li v-for="item in carrinholista" :key="item.id">
+        {{ item.produto }} ,{{ item.qtd }},
+        <button @click="removerItem(item)">x</button>
       </li>
     </ul>
-  `,
-  props: ['carrinho']
+  `
 }
